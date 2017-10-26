@@ -57,6 +57,13 @@
     overflow: hidden;
     min-width: 1024px;
     transition: padding-left 0.2s ease;
+    .view-layout-warp {
+      padding: 20px;
+      box-sizing: border-box;
+      min-height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
     .view-layout-topbar {
       position: absolute;
       width: 100%;

@@ -1,5 +1,6 @@
 import layout from './layout.vue'
 import empty from './empty.vue'
+import test from './view/test/routes'
 
 const routes = [
   {
@@ -9,7 +10,7 @@ const routes = [
       {
         path: '/test',
         component: empty,
-        // children: ,
+        children: test,
       },
     ],
   },

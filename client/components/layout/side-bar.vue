@@ -16,7 +16,6 @@
             <zd-icon :icon="childItem.icon"></zd-icon>
           </div>
           <div class="nav-title">{{childItem.name}}</div>
-          {{item.maxHeight}}
         </li>
       </ul>
     </div>
@@ -69,7 +68,7 @@
        * @param obj
        */
       goToUrl(obj) {
-        if (obj.link) this.router.push(obj.link)
+        if (obj.link) this.$router.push(obj.link)
       }
     },
   }
