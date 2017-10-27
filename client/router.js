@@ -1,11 +1,12 @@
 /* loading */
 import VueRouter from 'vue-router'
 import routes from './routes'
+
 const ProgressBar = require('progressbar.js')
 
 const router = new VueRouter({
   mode: 'history',
-  // base: '/book',
+  base: '/gb',
   routes
 })
 
