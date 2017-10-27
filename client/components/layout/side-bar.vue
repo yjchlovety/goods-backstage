@@ -10,7 +10,8 @@
         <zd-icon v-if="item.icon" :icon="item.icon"></zd-icon>
       </div>
       <ul class="sidebar-nav-ul" :style="`max-height:${item.maxHeight}px`">
-        <li class="nav-item" v-for="(childItem,cldIndex) in item.subMenu" @click="goToUrl(childItem)"
+        <li class="nav-item" :class="{'nav-item-checked':childItem.link==$route.meta.sidebarLink}"
+            v-for="(childItem,cldIndex) in item.subMenu" @click="goToUrl(childItem)"
             :key="`sidebar.${index}.nav.${cldIndex}`">
           <div class="nav-item-left">
             <zd-icon :icon="childItem.icon"></zd-icon>
@@ -33,9 +34,23 @@
       }
     },
     created() {
-      sideJson.sideBar.forEach(one => {
+      let result = false
+      sideJson.sideBar.forEach((one, index) => {
         one.isOpen = false
         one.maxHeight = 0
+        if (!result) {
+          for (let i = 0, len = one.subMenu.length; i < len; i++) {
+            if (one.subMenu[i].link === this.$route.meta.sidebarLink) {
+              this.menuIndex = index
+              const hh1 = document.documentElement.clientHeight - 50 - 40 * sideJson.sideBar.length
+              const hh2 = one.subMenu.length * 40
+              one.maxHeight = hh1 > hh2 ? hh2 : hh1
+              one.isOpen = true
+              result = true
+              break
+            }
+          }
+        }
       })
       this.menuJson = JSON.parse(JSON.stringify(sideJson.sideBar))
     },
@@ -46,7 +61,6 @@
        * @param {Number} index
        */
       openOrClose(item, index) {
-        this.log(item)
         if (this.menuIndex === index) {
           item.isOpen = false
           item.maxHeight = 0
@@ -120,7 +134,9 @@
     .nav-item:hover {
       background-color: #50576e;
     }
-
+    .nav-item-checked, .nav-item-checked:hover {
+      background-color: #1ac1de;
+    }
     .nav-title {
       float: left;
       overflow: hidden;

@@ -58,7 +58,7 @@
     min-width: 1024px;
     transition: padding-left 0.2s ease;
     .view-layout-warp {
-      padding: 20px;
+      padding: 0 20px;
       box-sizing: border-box;
       min-height: 100%;
       overflow-y: auto;

@@ -1,12 +1,7 @@
 <template>
-  <zd-layout title="测试页面">
-    <div slot="right" class="text-right">
-      123123
-    </div>
-    <zd-list-button></zd-list-button>
-
-    <div class="tect">
-      <a @click="$router.push('/test/add')" href="javascript:;">跳转</a>
+  <zd-layout title="测试添加页面" :back="true">
+    <div>
+      添加页面
     </div>
   </zd-layout>
 </template>

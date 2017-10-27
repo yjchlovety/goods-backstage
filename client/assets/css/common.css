@@ -22,6 +22,7 @@ code, kbd, pre, samp {
 
 body, small {
   font-size: 12PX;
+  line-height: 1.1;
 }
 
 ul, ol {
