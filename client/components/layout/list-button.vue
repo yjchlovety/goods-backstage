@@ -1,6 +1,11 @@
 <template>
   <div class="vl-list-button">
-
+    <div class="inline-block btn-div">
+      <slot name="search"></slot>
+    </div>
+    <el-button type="primary">主要按钮</el-button>
+    <el-button type="primary">主要按钮</el-button>
+    <el-button type="primary">主要按钮</el-button>
   </div>
 </template>
 <script type="text/babel">
@@ -25,9 +30,12 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .vl-layout-top {
-    padding: 16px 0;
+  .vl-list-button {
+    padding-bottom: 10px;
     font-size: 0;
+    .btn-div {
+      font-size: 12px;
+    }
     h5 {
       display: inline-block;
       border-left: 2px solid #ff4d51;

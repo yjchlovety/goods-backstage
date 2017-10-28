@@ -41,8 +41,11 @@
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
   .vl-layout-top {
-    padding: 16px 0;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
     font-size: 0;
+    border-bottom: 1px solid #DDD;
     h5 {
       display: inline-block;
       border-left: 2px solid #88B7E0;
