@@ -70,3 +70,8 @@ table {
 div {
   box-sizing: border-box;
 }
+
+.pagination-warp {
+  padding: 20px 0;
+  text-align: right;
+}

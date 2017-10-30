@@ -60,7 +60,7 @@
     .view-layout-warp {
       padding: 0 20px;
       box-sizing: border-box;
-      min-height: 100%;
+      height: 100%;
       overflow-y: auto;
       overflow-x: hidden;
     }
