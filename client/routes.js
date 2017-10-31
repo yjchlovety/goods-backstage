@@ -1,6 +1,7 @@
 import layout from './layout.vue'
 import empty from './empty.vue'
 import test from './view/test/routes'
+import login from './view/login/login.vue'
 
 const routes = [
   {
@@ -13,6 +14,13 @@ const routes = [
         children: test,
       },
     ],
+  },
+  {
+    path: '/login',
+    component: login,
+    meta: {
+      title: '登录'
+    }
   },
 ]
 
