@@ -14,11 +14,31 @@ import './config'
 // 引入router
 import router from './router'
 import App from './app.vue'
+// 引入store
+import vueStorage from './utils/storage'
 
+// import http from '@config/utils/http/http'
+
+/**
+ * @param {Object} Vue Vue
+ * @param {router} [router=undefined] VueRouter 实例化对象
+ * @param [] 路由白名单
+ * @param (storage) => {} 回调函数
+ */
+const store = vueStorage(Vue, router, [], (storage, to, from) => {
+  return new Promise((resolve) => {
+    const { whether } = storage.getItem('userObject', false) || JSON.parse(localStorage.getItem('userObject')) || {}
+    if (!whether && to.path !== '/login') {
+      global.location.href = '/login'
+    } else {
+      resolve(storage, to, from)
+    }
+  })
+})
 /*eslint-disable*/
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   render: h => h(App)
 })

@@ -28,17 +28,20 @@
             name: 'admin',
             psd: '654321',
             powerLevel: 1,
+            nickname: '超级管理员',
           },
           {
             name: 'shop',
             psd: '654321',
             powerLevel: 2,
+            nickname: 'ViVo手机商家',
           }
         ],
         powerLevel: 1,
         popoverState: false,
         userName: 'admin',
-        passWord: '654321'
+        passWord: '654321',
+        nickname: '超级管理员'
       }
     },
     methods: {
@@ -46,6 +49,15 @@
        * 登录
        */
       doLogin() {
+        const user = {
+          userName: this.userName,
+          powerLevel: this.powerLevel,
+          nickname: this.nickname,
+          whether: true, // 是否登录
+        }
+        this.$storage.setItem('userObject', user, false)
+        localStorage.setItem('userObject', JSON.stringify(user), false)
+        this.$router.push('/test')
       },
       /**
        * 切换用户
