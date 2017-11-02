@@ -1,22 +1,16 @@
 <template>
   <div class="vl-side-bar">
     <div class="sidebar-nav" v-for="(item,index) in menuJson " :key="`sidebar-nav${index}`">
-      <div class="sidebar-title sidebar-title-inner" :class="{'sidebar-open':item.isOpen}"
+      <div class="sidebar-title" :class="{'sidebar-open':item.isOpen,'no-nav':!item.subMenu||item.subMenu.length==0}"
            @click="openOrClose(item,index)">
-        <div class="inline-block">
-          <zd-icon icon="triangle-right"></zd-icon>
-        </div>
-        <span class="sidebar-title-text">{{item.name}}</span>
         <zd-icon v-if="item.icon" :icon="item.icon"></zd-icon>
+        <span class="sidebar-title-text inline-block">{{item.name}}</span>
       </div>
       <ul class="sidebar-nav-ul" :style="`max-height:${item.maxHeight}px`">
         <li class="nav-item" :class="{'nav-item-checked':childItem.link==$route.meta.sidebarLink}"
             v-for="(childItem,cldIndex) in item.subMenu" @click="goToUrl(childItem)"
             :key="`sidebar.${index}.nav.${cldIndex}`">
-          <div class="nav-item-left">
-            <zd-icon :icon="childItem.icon"></zd-icon>
-          </div>
-          <div class="nav-title">{{childItem.name}}</div>
+          {{childItem.name}}
         </li>
       </ul>
     </div>
@@ -34,15 +28,17 @@
       }
     },
     created() {
+      const sideBar = sideJson['sideBar' + this.$storage.getItem('userObject', false).powerLevel]
       let result = false
-      sideJson.sideBar.forEach((one, index) => {
+      sideBar.forEach((one, index) => {
         one.isOpen = false
         one.maxHeight = 0
         if (!result) {
+          one.isOpen = one.link === this.$route.fullPath
           for (let i = 0, len = one.subMenu.length; i < len; i++) {
             if (one.subMenu[i].link === this.$route.meta.sidebarLink) {
               this.menuIndex = index
-              const hh1 = document.documentElement.clientHeight - 50 - 40 * sideJson.sideBar.length
+              const hh1 = document.documentElement.clientHeight - 50 - 40 * sideBar.length
               const hh2 = one.subMenu.length * 40
               one.maxHeight = hh1 > hh2 ? hh2 : hh1
               one.isOpen = true
@@ -52,7 +48,7 @@
           }
         }
       })
-      this.menuJson = JSON.parse(JSON.stringify(sideJson.sideBar))
+      this.menuJson = JSON.parse(JSON.stringify(sideBar))
     },
     methods: {
       /**
@@ -70,10 +66,13 @@
             v.isOpen = 0
             v.maxHeight = 0
           })
-          const hh1 = document.documentElement.clientHeight - 50 - 40 * this.menuJson.length
-          const hh2 = this.menuJson[index].subMenu.length * 40
-          this.menuJson[index].maxHeight = hh1 > hh2 ? hh2 : hh1
+          if (this.menuJson[index].subMenu && this.menuJson[index].subMenu.length > 0) {
+            const hh1 = document.documentElement.clientHeight - 50 - 40 * this.menuJson.length
+            const hh2 = this.menuJson[index].subMenu.length * 40
+            this.menuJson[index].maxHeight = hh1 > hh2 ? hh2 : hh1
+          }
           this.menuJson[index].isOpen = true
+          this.goToUrl(item)
           this.menuIndex = index
         }
       },
@@ -99,23 +98,13 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      .inline-block {
-        transition: all 0.2s ease, 0.2s ease;
-        vertical-align: inherit;
-      }
-      i {
-        font-size: 12px;
-      }
       .sidebar-title-text {
         padding-left: 10px;
       }
-    }
-    .sidebar-open {
-      .inline-block {
-        transform: rotate(90deg)
+      i {
+        vertical-align: middle;
       }
     }
-
     .nav-item-left {
       float: left;
       width: 30px;
@@ -127,35 +116,16 @@
       background-color: #333745;
       height: 40px;
       color: #fff;
-      line-height: 40px;
+      line-height: 20px;
       cursor: pointer;
-      padding: 0 10px;
+      padding: 10px 35px;
+      box-sizing: border-box;
     }
     .nav-item:hover {
       background-color: #50576e;
     }
-    .nav-item-checked, .nav-item-checked:hover {
+    .nav-item-checked, .nav-item-checked:hover, .sidebar-open.no-nav {
       background-color: #1ac1de;
-    }
-    .nav-title {
-      float: left;
-      overflow: hidden;
-      color: #fff;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      width: 130px;
-      padding-left: 5px;
-    }
-    .sidebar-title-text + i {
-      float: right;
-      font-size: 16px;
-      display: none;
-    }
-    .sidebar-title-inner:hover {
-      background-color: #1ac1de;
-      .sidebar-title-text + i {
-        display: inline-block;
-      }
     }
     .sidebar-nav-ul {
       width: 200px;

@@ -31,6 +31,7 @@ const store = vueStorage(Vue, router, [], (storage, to, from) => {
     if (!whether && to.path !== '/login') {
       global.location.href = '/login'
     } else {
+      storage.setItem('userObject', JSON.parse(localStorage.getItem('userObject')), false)
       resolve(storage, to, from)
     }
   })

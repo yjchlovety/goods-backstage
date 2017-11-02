@@ -57,7 +57,7 @@
         }
         this.$storage.setItem('userObject', user, false)
         localStorage.setItem('userObject', JSON.stringify(user), false)
-        this.$router.push('/test')
+        this.$router.push('/index')
       },
       /**
        * 切换用户
@@ -67,6 +67,7 @@
         this.passWord = uu.psd
         this.popoverState = false
         this.powerLevel = uu.powerLevel
+        this.nickname = uu.nickname
       },
     }
   }
