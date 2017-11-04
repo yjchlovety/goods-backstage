@@ -4,6 +4,8 @@ import test from './view/test/routes'
 import login from './view/login/login.vue'
 import index from './view/index.vue'
 import error404 from './view/error-404.vue'
+import business from './view/business/routes'
+import statistics from './view/statistics/routes'
 
 const routes = [
   {
@@ -13,6 +15,16 @@ const routes = [
       {
         path: '/index',
         component: index,
+      },
+      {
+        path: '/business',
+        component: empty,
+        children: business,
+      },
+      {
+        path: '/statistics',
+        component: empty,
+        children: statistics,
       },
       {
         path: '/test',

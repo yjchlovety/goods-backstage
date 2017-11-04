@@ -1,6 +1,6 @@
 <template>
   <div class="padding-tb-20">
-    首页
+    商家类别
   </div>
 </template>
 <script type="text/babel">

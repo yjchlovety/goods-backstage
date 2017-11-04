@@ -1,14 +1,14 @@
 <template>
   <div class="view-layout" :class="{'layout-cut':isCutOut}">
     <div class="view-layout-topbar">
-      <zd-top-bar></zd-top-bar>
+      <ml-top-bar></ml-top-bar>
     </div>
     <div class="view-layout-sidebar">
-      <zd-side-bar></zd-side-bar>
+      <ml-side-bar></ml-side-bar>
       <div class="sidebar-collapse-inner" @click="unfoldOrRetract" :title="isCutOut?'展开':'收起'">
         <div class="sidebar-collapse-bg"></div>
         <div class="sidebar-collapse">
-          <zd-icon icon="collapse-left"></zd-icon>
+          <ml-icon icon="collapse-left"></ml-icon>
         </div>
       </div>
     </div>

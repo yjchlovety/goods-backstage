@@ -31,6 +31,7 @@ ul, ol {
 
 a {
   text-decoration: none;
+  color: #20a0ff;
 }
 
 a:hover {
@@ -62,16 +63,69 @@ table {
   border-spacing: 0;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 .inline-block {
   display: inline-block;
   vertical-align: middle;
 }
 
-div {
-  box-sizing: border-box;
-}
-
 .pagination-warp {
   padding: 20px 0;
   text-align: right;
+}
+
+.padding-tb-20 {
+  padding: 20px 0;
+}
+
+.button-bar {
+  margin-bottom: 10px;
+}
+
+.button-bar .input-search {
+  width: 220px;
+  margin-right: 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.ml-layout .base-width {
+  width: 220px;
+}
+
+.ml-layout .middle-width {
+  width: 440px;
+}
+
+.ml-layout .el-form-item__label {
+  position: relative;
+}
+
+.ml-layout .el-form-item.is-required .el-form-item__label:before {
+  left: -10px;
+  position: absolute;
+}
+
+.ml-area-title-bg {
+  border-bottom: 5px solid #f8fafb;
+}
+
+.ml-last-area {
+  border-bottom: 0;
+}
+
+.base-button-warp {
+  height: 60px;
+  padding: 7px;
+  text-align: center;
+}
+
+.base-button-warp .el-button {
+  width: 170px;
+  margin: 0 15px;
 }

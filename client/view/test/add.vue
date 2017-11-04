@@ -1,9 +1,9 @@
 <template>
-  <zd-layout title="测试添加页面" :back="true">
+  <ml-layout title="测试添加页面" :back="true">
     <div>
       添加页面
     </div>
-  </zd-layout>
+  </ml-layout>
 </template>
 <script type="text/babel">
 

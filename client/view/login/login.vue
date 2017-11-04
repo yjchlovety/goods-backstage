@@ -9,10 +9,10 @@
       </el-popover>
       <a class="switch-user" href="javascript:;" v-popover:popover>切换用户</a>
       <el-input placeholder="用户名" class="login-input" v-model="userName">
-        <zd-icon class="login-icon" slot="prepend" icon="user"></zd-icon>
+        <ml-icon class="login-icon" slot="prepend" icon="user"></ml-icon>
       </el-input>
       <el-input placeholder="密码" type="password" class="login-input" v-model="passWord">
-        <zd-icon class="login-icon" slot="prepend" icon="password"></zd-icon>
+        <ml-icon class="login-icon" slot="prepend" icon="password"></ml-icon>
       </el-input>
       <el-button class="login-button" @click="doLogin" type="primary">登录</el-button>
 

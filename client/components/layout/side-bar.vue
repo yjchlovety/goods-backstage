@@ -1,9 +1,9 @@
 <template>
-  <div class="vl-side-bar">
+  <div class="ml-side-bar">
     <div class="sidebar-nav" v-for="(item,index) in menuJson " :key="`sidebar-nav${index}`">
       <div class="sidebar-title" :class="{'sidebar-open':item.isOpen,'no-nav':!item.subMenu||item.subMenu.length==0}"
            @click="openOrClose(item,index)">
-        <zd-icon v-if="item.icon" :icon="item.icon"></zd-icon>
+        <ml-icon v-if="item.icon" :icon="item.icon"></ml-icon>
         <span class="sidebar-title-text inline-block">{{item.name}}</span>
       </div>
       <ul class="sidebar-nav-ul" :style="`max-height:${item.maxHeight}px`">
@@ -72,7 +72,14 @@
             this.menuJson[index].maxHeight = hh1 > hh2 ? hh2 : hh1
           }
           this.menuJson[index].isOpen = true
-          this.goToUrl(item)
+          if (!item.link) {
+            const $index = this.menuJson[index].subMenu.findIndex(mm => {
+              return mm.link === this.$route.fullPath
+            })
+            this.goToUrl(item.subMenu[$index === -1 ? 0 : $index])
+          } else {
+            this.goToUrl(item)
+          }
           this.menuIndex = index
         }
       },
@@ -87,7 +94,7 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .vl-side-bar {
+  .ml-side-bar {
     .sidebar-title {
       height: 40px;
       background-color: #42485B;

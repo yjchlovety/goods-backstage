@@ -1,17 +1,17 @@
 <template>
-  <zd-layout title="测试页面">
+  <ml-layout title="测试页面">
     <div slot="right" class="text-right">
       123123
     </div>
-    <zd-list-button>
+    <ml-list-button>
       <div class="inline-block input-search" slot="search">
         <el-input placeholder="请输入内容" v-model="inputVal">
           <div class="inline-block" slot="append" style="cursor: pointer">
-            <zd-icon icon="sousuo"></zd-icon>
+            <ml-icon icon="sousuo"></ml-icon>
           </div>
         </el-input>
       </div>
-    </zd-list-button>
+    </ml-list-button>
     <el-table
       :data="tableData"
       border
@@ -61,7 +61,7 @@
         :total="400">
       </el-pagination>
     </div>
-  </zd-layout>
+  </ml-layout>
 </template>
 <script type="text/babel">
   export default {

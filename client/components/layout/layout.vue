@@ -1,13 +1,13 @@
 <template>
-  <div class="vl-layout">
-    <div class="vl-layout-top">
-      <div class="vl-ltt-back inline-block" @click="goBack" v-if="back" title="返回">
-        <zd-icon icon="fanhui"></zd-icon>
+  <div class="ml-layout">
+    <div class="ml-layout-top">
+      <div class="ml-ltt-back inline-block" @click="goBack" v-if="back" title="返回">
+        <ml-icon icon="fanhui"></ml-icon>
       </div>
-      <div class="vl-ltt-title inline-block">
+      <div class="ml-ltt-title inline-block">
         <h5 class="ng-binding">{{title}}</h5>
       </div>
-      <div class="vl-ltt-right">
+      <div class="ml-ltt-right">
         <slot name="right"></slot>
       </div>
     </div>
@@ -40,7 +40,7 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .vl-layout-top {
+  .ml-layout-top {
     padding-top: 16px;
     padding-bottom: 8px;
     margin-bottom: 8px;
@@ -55,7 +55,7 @@
       color: #666;
       margin: 8px 8px 8px 0;
     }
-    .vl-ltt-back {
+    .ml-ltt-back {
       margin-right: 8px;
       cursor: pointer;
       i {
@@ -63,7 +63,7 @@
         font-size: 18px;
       }
     }
-    .vl-ltt-right {
+    .ml-ltt-right {
       float: right;
       font-size: 12px;
     }

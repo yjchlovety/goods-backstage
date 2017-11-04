@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 Vue.use(elementUI)
 
 Object.values(components).forEach(comp => {
-  Vue.component('zd-' + comp.name, comp)
+  Vue.component('ml-' + comp.name, comp)
 })
 
 // request前自动添加api配置

@@ -1,7 +1,7 @@
 <template>
-  <div class="vl-top-bar">
+  <div class="ml-top-bar">
     <a class="top-bar-btn top-bar-index" href="javascript:;">
-      <zd-icon icon="shouye"></zd-icon>
+      <ml-icon icon="shouye"></ml-icon>
     </a>
     <a class="top-bar-btn index-word" href="javascript:;">管理后台</a>
     <div class="top-bar-right">
@@ -36,7 +36,7 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .vl-top-bar {
+  .ml-top-bar {
     line-height: 50px;
     font-size: 0;
     .top-bar-btn {
