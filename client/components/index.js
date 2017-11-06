@@ -6,6 +6,7 @@ import oneLine from './layout/one-line.vue'
 import icon from './icon/icon.vue'
 import imageView from './image/image-view.vue'
 import imageUploader from './image/image-uploader.vue'
+import imageViewLg from './image/image-view-lg.vue'
 
 export default {
   layout,
@@ -16,4 +17,5 @@ export default {
   icon,
   imageView,
   imageUploader,
+  imageViewLg,
 }

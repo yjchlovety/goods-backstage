@@ -37,44 +37,44 @@
         label="创建日期"
         width="140">
       </el-table-column>
-      <el-table-column
-        prop="createDate"
-        label="状态"
-        width="80">
-        <template scope="scope">
-          {{scope.row.state? '启用' : '禁用'}}
-        </template>
-      </el-table-column>
+      <!--<el-table-column-->
+      <!--prop="createDate"-->
+      <!--label="状态"-->
+      <!--width="80">-->
+      <!--<template scope="scope">-->
+      <!--{{scope.row.state? '启用' : '禁用'}}-->
+      <!--</template>-->
+      <!--</el-table-column>-->
 
       <el-table-column
         prop="address"
         label="地址">
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="170">
+      <el-table-column fixed="right" label="操作" width="80">
         <template scope="scope">
-          <el-popover placement="bottom"
-                      width="280"
-                      ref="delOpt">
-            <div class="common-pop-wrap">
-              <p class="pop-content center">删除后，此活动将无法恢复。确定删除？</p>
-              <div class="pop-bottom">
-                <el-button type="primary" @click="doDelete(scope.row.id)">确定</el-button>
-                <el-button @click="popoverClose">取消</el-button>
-              </div>
-            </div>
-          </el-popover>
-          <el-button
-            size="mini"
-            @click="doEnableDisable(scope.row)"> {{!scope.row.state ? '启用' : '禁用'}}
-          </el-button>
+          <!--<el-popover placement="bottom"-->
+          <!--width="280"-->
+          <!--ref="delOpt">-->
+          <!--<div class="common-pop-wrap">-->
+          <!--<p class="pop-content center">删除后，此活动将无法恢复。确定删除？</p>-->
+          <!--<div class="pop-bottom">-->
+          <!--<el-button type="primary" @click="doDelete(scope.row.id)">确定</el-button>-->
+          <!--<el-button @click="popoverClose">取消</el-button>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</el-popover>-->
+          <!--<el-button-->
+          <!--size="mini"-->
+          <!--@click="doEnableDisable(scope.row)"> {{!scope.row.state ? '启用' : '禁用'}}-->
+          <!--</el-button>-->
           <el-button
             size="mini"
             @click="toDoEdit(scope.row.id)">编辑
           </el-button>
-          <el-button
-            size="mini"
-            type="danger" v-popover:delOpt>删除
-          </el-button>
+          <!--<el-button-->
+          <!--size="mini"-->
+          <!--type="danger" v-popover:delOpt>删除-->
+          <!--</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -101,16 +101,64 @@
         totalNumber: 100,
         inputVal: '',
         tableData: [
-          { id: 10012321, businessName: 'ViVo手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: true },
-          { id: 10012322, businessName: 'iphone手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路1518 弄', state: false },
-          { id: 10012333, businessName: '小米M手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: false },
+          {
+            id: 10012321,
+            businessName: 'ViVo手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: true
+          },
+          {
+            id: 10012322,
+            businessName: 'iphone手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路1518 弄',
+            state: false
+          },
+          {
+            id: 10012333,
+            businessName: '小米M手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: false
+          },
           { id: 10015223, businessName: '华为手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: true },
-          { id: 10012323, businessName: 'SNMSUNG手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙路1518 弄', state: false },
-          { id: 10014323, businessName: '诺基亚手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: true },
-          { id: 10042323, businessName: 'SONY手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: true },
+          {
+            id: 10012323,
+            businessName: 'SNMSUNG手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙路1518 弄',
+            state: false
+          },
+          {
+            id: 10014323,
+            businessName: '诺基亚手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: true
+          },
+          {
+            id: 10042323,
+            businessName: 'SONY手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: true
+          },
           { id: 10016323, businessName: '中兴手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: true },
-          { id: 10016323, businessName: 'OPPON手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: false },
-          { id: 10016323, businessName: 'NUOIO手机卖家', createDate: '2016-05-02', address: '上海市普陀区金沙江路 1518 弄', state: false },
+          {
+            id: 10016323,
+            businessName: 'OPPON手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: false
+          },
+          {
+            id: 10016323,
+            businessName: 'NUOIO手机卖家',
+            createDate: '2016-05-02',
+            address: '上海市普陀区金沙江路 1518 弄',
+            state: false
+          },
         ],
         multipleSelection: [],
         whiteList: [
@@ -147,14 +195,6 @@
         this.log(obj)
         obj.state = !obj.state
         this.$message.success(`${obj.state ? '启用' : '禁用'}成功`)
-      },
-      /**
-       * 删除
-       * @param {String} id
-       */
-      doDelete(id) {
-        this.log(id)
-        this.$message.success('删除成功')
       },
       /**
        * 去编辑

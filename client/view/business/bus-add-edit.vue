@@ -10,9 +10,18 @@
                     placeholder="最多支持50个字">
           </el-input>
         </el-form-item>
-        <el-form-item label="商家图片" prop="logoUrl">
+        <el-form-item label="商家LOGO" prop="logoUrl">
           <ml-image-uploader v-model="detail.logoUrl" max-size="1" prompt="建议图片250*250px 支持JPG、JPEG、PNG格式，大小在1M以内">
           </ml-image-uploader>
+        </el-form-item>
+        <el-form-item label="商家地址" prop="address">
+          <el-input v-model="detail.address"
+                    resize="none"
+                    :autosize="{minRows: 2, maxRows: 2 }"
+                    class="middle-width"
+                    type="textarea"
+                    :maxlength="100">
+          </el-input>
         </el-form-item>
         <el-form-item label="商家描述">
           <el-input v-model="detail.describe"
@@ -38,13 +47,13 @@
           </el-input>
           <div class="inline-block stress">注:商家登录账户，密码默认为初始化密码</div>
         </el-form-item>
-        <el-form-item label="启用状态">
-          <el-switch
-            v-model="detail.state"
-            on-color="#13ce66"
-            off-color="#ff4949">
-          </el-switch>
-        </el-form-item>
+        <!--<el-form-item label="启用状态">-->
+        <!--<el-switch-->
+        <!--v-model="detail.state"-->
+        <!--on-color="#13ce66"-->
+        <!--off-color="#ff4949">-->
+        <!--</el-switch>-->
+        <!--</el-form-item>-->
       </ml-area-title>
     </el-form>
     <div class="base-button-warp">
@@ -75,6 +84,10 @@
           logoUrl: [
             { required: true, message: '请上传图片', trigger: 'change' },
             { required: true, message: '请上传图片', trigger: 'blur' },
+          ],
+          address: [
+            { required: true, message: '请输入地址', trigger: 'change' },
+            { required: true, message: '请输入地址', trigger: 'blur' },
           ]
         },
         detail: {
@@ -83,7 +96,8 @@
           contactName: '', // 联系人姓名
           contactPhone: '', // 联系人电话
           state: true, // 商家状态true启用,false禁用
-          logoUrl: '' // 商家logoURL
+          logoUrl: 'http://img-np.xkeshi.cn/test/w1/d8/bf/c74d9691afbc1bd5091881996cce.jpeg', // 商家logoURL
+          address: '', // 商家地址
         },
         title: this.$route.query.id ? '添加商家' : '编辑商家',
       }
