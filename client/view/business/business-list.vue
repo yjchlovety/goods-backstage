@@ -52,6 +52,14 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="80">
         <template scope="scope">
+          <!--<el-button-->
+          <!--size="mini"-->
+          <!--@click="doEnableDisable(scope.row)"> {{!scope.row.state ? '启用' : '禁用'}}-->
+          <!--</el-button>-->
+          <el-button
+            size="mini"
+            @click="toDoEdit(scope.row.id)">编辑
+          </el-button>
           <!--<el-popover placement="bottom"-->
           <!--width="280"-->
           <!--ref="delOpt">-->
@@ -63,14 +71,6 @@
           <!--</div>-->
           <!--</div>-->
           <!--</el-popover>-->
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--@click="doEnableDisable(scope.row)"> {{!scope.row.state ? '启用' : '禁用'}}-->
-          <!--</el-button>-->
-          <el-button
-            size="mini"
-            @click="toDoEdit(scope.row.id)">编辑
-          </el-button>
           <!--<el-button-->
           <!--size="mini"-->
           <!--type="danger" v-popover:delOpt>删除-->
@@ -214,28 +214,6 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .common-pop-wrap {
-    .pop-content {
-      width: 220px;
-      margin: 10px auto 15px;
-      line-height: 25px;
-      &.center {
-        text-align: center;
-      }
-      &.left {
-        text-align: left;
-      }
-    }
-    .pop-bottom {
-      text-align: center
-      margin-bottom: 15px;
-      button {
-        margin-left: 10px;
-        margin-right: 10px;
-        width: 80px;
-      }
-    }
-  }
 
   .text-right {
     color: red;

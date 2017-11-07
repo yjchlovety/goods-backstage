@@ -133,3 +133,24 @@ div {
 .last-ml-line {
   margin-bottom: 15px;
 }
+
+.common-pop-wrap .pop-content.center {
+  text-align: center;
+}
+
+.common-pop-wrap .pop-content {
+  width: 220px;
+  margin: 10px auto 15px;
+  line-height: 25px;
+}
+
+.common-pop-wrap .pop-bottom {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.common-pop-wrap .pop-bottom button {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 80px;
+}
