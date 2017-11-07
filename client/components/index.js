@@ -7,8 +7,6 @@ import icon from './icon/icon.vue'
 import imageView from './image/image-view.vue'
 import imageUploader from './image/image-uploader.vue'
 import imageViewLg from './image/image-view-lg.vue'
-import mlTree from './tree/ml-tree.vue'
-import mlItem from './tree/ml-item.vue'
 
 export default {
   layout,
@@ -20,6 +18,4 @@ export default {
   imageView,
   imageUploader,
   imageViewLg,
-  mlTree,
-  mlItem,
 }

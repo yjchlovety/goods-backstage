@@ -1,30 +1,6 @@
 <template>
   <ml-layout title="分类管理">
     <div class="shop-class-tree">
-      <div class="button-bar">
-        <el-popover placement="right"
-                    width="280"
-                    v-model="popoverState"
-                    ref="classAdd">
-          <div class="common-pop-wrap">
-            <div class="class-label">上级分类</div>
-            <el-cascader
-              class="class-select"
-              :options="optionFilter()"
-              :props="defaultProps"
-              v-model="selectVal"
-              change-on-select
-            ></el-cascader>
-            <div class="class-label">类别名称</div>
-            <el-input class="input-class-name" v-model="className"></el-input>
-            <div class="pop-bottom">
-              <el-button type="primary" @click="addTree">确定</el-button>
-              <el-button @click="popoverState=false">取消</el-button>
-            </div>
-          </div>
-        </el-popover>
-        <el-button v-popover:classAdd type="primary">添加类别</el-button>
-      </div>
       <el-tree
         node-key="id"
         :data="treeData"
@@ -32,9 +8,27 @@
         :default-expand-all="true"
         :expand-on-click-node="false"
         :render-content="renderContent"></el-tree>
-      <ml-tree>
-
-      </ml-tree>
+      <el-dialog
+        :title="isEdit?'修改分类':'添加子分类'"
+        :visible.sync="dialogVisible"
+        size="tiny"
+        :before-close="handleClose">
+        <el-form :model="category" :rules="rules" ref="ruleForm" label-width="88px" onSubmit="return false"
+                 label-position="left">
+          <div class="category-warp">
+            <el-form-item label="父级分类" required v-show="!isEdit">
+              {{nowCategory.label}}
+            </el-form-item>
+            <el-form-item label="分类名称" prop="label">
+              <el-input v-model="category.label" :maxlength="30" class="base-width"></el-input>
+            </el-form-item>
+          </div>
+          <div class="base-button-warp">
+            <el-button type="primary" @click="doSubmit">保存</el-button>
+            <el-button @click="handleClose">取消</el-button>
+          </div>
+        </el-form>
+      </el-dialog>
     </div>
   </ml-layout>
 </template>
@@ -42,95 +36,124 @@
   export default {
     data() {
       return {
-        popoverState: false,
-        className: '',
-        selectVal: [0],
-        treeData: [
-          {
-            label: '根目录',
-            id: 0,
-            children: [
-              {
-                id: 11,
-                label: '一级 1',
-              },
-              {
-                id: 22,
-                label: '一级 2',
-              },
-            ]
-          },
-          {
-            label: '根目录',
-            id: 0,
-            children: [
-              {
-                id: 11,
-                label: '一级 1',
-              },
-              {
-                id: 22,
-                label: '一级 2',
-              },
-            ]
-          }
-        ],
+        rules: {
+          label: [
+            { required: true, message: '请输入分类名称', trigger: 'change' },
+            { required: true, message: '请输入分类名称', trigger: 'blur' },
+          ],
+        },
+        category: {
+          label: '',
+          id: '',
+        },
+        nowCategory: {},
+        dialogVisible: false,
+        isEdit: false,
+        treeData: [{
+          label: '根目录',
+          id: 0,
+          children: [
+            {
+              id: 11,
+              label: '一级 1',
+              children: [
+                {
+                  id: 111,
+                  label: '二级 1-1',
+                },
+                {
+                  id: 112,
+                  label: '二级 1-2'
+                },
+                {
+                  id: 113,
+                  label: '二级 1-3'
+                }
+              ],
+            },
+            {
+              id: 22,
+              label: '一级 2',
+              children: [
+                {
+                  id: 221,
+                  label: '二级 2-1'
+                },
+                {
+                  id: 223,
+                  label: '二级 2-2'
+                },
+                {
+                  id: 224,
+                  label: '二级 2-3'
+                }
+              ],
+            },
+          ]
+        }],
         defaultProps: {
           children: 'children',
           label: 'label',
-          value: 'id'
         },
       }
     },
     methods: {
+      handleClose() {
+        this.dialogVisible = false
+        this.$refs.ruleForm.resetFields()
+      },
       /**
-       * 过滤第四级分类
-       * @return {Array} ary
+       * 添加子分类
        */
-      optionFilter() {
-        const ary = [{ label: '根目录', id: 0, children: [] }]
-        this.treeData[0].children.forEach(v1 => {
-          // 第一级
-          const obj1 = { label: v1.label, id: v1.id, children: [] }
-          ary[0].children.push(obj1)
-          if (v1.children && v1.children.length > 0) {
-            // 第二级
-            v1.children.forEach(v2 => {
-              obj1.children.push({ label: v2.label, id: v2.id })
-            })
+      doSubmit() {
+        this.$refs.ruleForm.validate((valid) => {
+          if (valid) {
+            if (this.isEdit) {
+              this.nowCategory.label = this.category.label
+            } else {
+              if (!this.nowCategory.children) this.nowCategory.children = []
+              this.category.id = Math.floor(Math.random() * 1000000)
+              this.nowCategory.children.push(this.category.label)
+            }
+            this.dialogVisible = false
+            this.$message.success(`${this.isEdit ? '修改' : '添加'}成功`)
+          } else {
+            this.$message.error('信息填写有误，请核查')
           }
         })
-        return ary
       },
       /**
-       * 添加树
+       * 添加子分类
        */
-      addTree() {
-        if (!this.className) {
-          this.$message.error('请输入类别名称')
-          return
-        }
-        const obj = { label: this.className, id: Math.floor(Math.random() * 100000) }
-        if (this.selectVal.length < 3) obj.children = []
-        switch (this.selectVal.length) {
-          case 3:
-            this.treeData[0].children[this.selectVal[1]].children[this.selectVal[2]].children.push(obj)
-            break
-          case 2:
-            this.treeData[0].children[this.selectVal[1]].children.push(obj)
-            break
-          case 1:
-            this.treeData[0].children.push(obj)
-            break
-          default:
-            break
-        }
-        this.className = ''
-        this.popoverState = false
-        this.selectVal = [0]
+      openAddDialog(store, data) {
+        this.nowCategory = data
+        this.category = { label: '', id: '', }
+        this.isEdit = false
+        this.dialogVisible = true
       },
+      /**
+       * 修改分类
+       * @param {Object} store
+       * @param {Object} data
+       */
+      editNode(store, data) {
+        Object.assign(this.category, data)
+        this.isEdit = true
+        this.dialogVisible = true
+      },
+      /**
+       * 删除tree
+       * @param {Object} store
+       * @param {Object} data
+       */
       deleteTree(store, data) {
-        store.remove(data)
+        this.$confirm('确定要删除该分类吗？')
+          .then(() => {
+            store.remove(data)
+            this.$message.success('删除成功')
+          })
+          .catch(() => {
+          })
       },
       /**
        * 自定义tree模版
@@ -141,19 +164,43 @@
        * @return {XML}
        */
       renderContent(h, { node, data, store }) {
-        if (data.$treeNodeId > 1) {
+        if (node.level > 1 && node.level < 4) {
           return (
             <span>
               <span>
                 <span>{node.label}</span>
               </span>
-              <span class="tree-btn">
-                <el-button type="danger" size="mini" on-click={() => this.deleteTree(store, data)}>删除</el-button>
+              <span style="float: right; margin-right: 20px">
+                <el-button size="mini" on-click={() => this.openAddDialog(store, data)}>添加子分类</el-button>
+                <el-button size="mini" on-click={() => this.editNode(store, data)}>修改</el-button>
+                <el-button type="danger" on-click={() => this.deleteTree(store, data)} size="mini">删除</el-button>
               </span>
             </span>
           )
+        } else if (node.level === 4) {
+          return (
+            <span>
+              <span>
+                <span>{node.label}</span>
+              </span>
+              <span style="float: right; margin-right: 20px">
+                <el-button size="mini" on-click={() => this.editNode(store, data)}>修改</el-button>
+                <el-button type="danger" on-click={() => this.deleteTree(store, data)} size="mini">删除</el-button>
+              </span>
+            </span>
+          )
+        } else {
+          return (
+            <span>
+            <span>
+              <span>{node.label}</span>
+            </span>
+            <span style="float: right; margin-right: 20px">
+              <el-button size="mini" on-click={() => this.openAddDialog(store, data)}>添加子分类</el-button>
+            </span>
+          </span>
+          )
         }
-        return (<span>{node.label}</span>)
       },
     }
   }
@@ -168,18 +215,7 @@
   }
 </style>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
-  .input-class-name {
-    margin-bottom: 15px;
+  .category-warp {
+    padding: 0 20px;
   }
-
-  .class-select {
-    margin-bottom: 10px;
-    width: 100%;
-  }
-
-  .class-label {
-    padding: 5px 0;
-    font-size: 14px;
-  }
-
 </style>
