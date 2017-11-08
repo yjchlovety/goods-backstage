@@ -17,14 +17,30 @@ export default {
       link: '/statistics/info',
       subMenu: [],
     },
+  ],
+  sideBar2: [ // shop商户
+    {
+      name: '商品管理', // 菜单名称
+      icon: 'shezhi', // 菜单图标
+      level: 1, // 菜单级别
+      link: '/business/list',
+      subMenu: [],
+    },
+    {
+      name: '订单管理', // 菜单名称
+      icon: 'shezhi', // 菜单图标
+      level: 1, // 菜单级别
+      link: '/business/list',
+      subMenu: [],
+    },
     {
       name: '账户设置', // 菜单名称
       icon: 'shezhi', // 菜单图标
       level: 1, // 菜单级别
-      link: '/index2',
-      subMenu: [],
+      link: '',
+      subMenu: [
+        { name: '修改密码', link: '/business/list', level: 2, operate: ['add', 'edit', 'delete'] },
+      ],
     },
-  ],
-  sideBar2: [ // shop商户
   ]
 }

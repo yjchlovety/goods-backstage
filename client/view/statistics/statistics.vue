@@ -1,6 +1,6 @@
 <template>
   <div class="padding-tb-20">
-    统计页面
+    统计页面，还没做
   </div>
 </template>
 <script type="text/babel">

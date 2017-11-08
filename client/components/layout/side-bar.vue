@@ -88,7 +88,7 @@
        * @param obj
        */
       goToUrl(obj) {
-        if (obj.link) this.$router.push(obj.link)
+        if (obj && obj.link) this.$router.push(obj.link)
       }
     },
   }
