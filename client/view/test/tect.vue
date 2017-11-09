@@ -107,7 +107,7 @@
 </style>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
   .input-search {
-    margin-right: 10px;
+    margin-left: 10px;
   }
 
   .text-right {

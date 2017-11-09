@@ -87,7 +87,7 @@ div {
 
 .button-bar .input-search {
   width: 220px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .pointer {
@@ -153,4 +153,12 @@ div {
   margin-left: 10px;
   margin-right: 10px;
   width: 80px;
+}
+
+.mgl10 {
+  margin-left: 10px;
+}
+
+.mgr5 {
+  margin-right: 5px;
 }

@@ -1,42 +1,22 @@
 <template>
   <ml-layout title="商家列表">
     <div class="button-bar">
+      <el-button type="primary" @click="$router.push('/business/add')">添加商家</el-button>
       <el-input class="input-search" placeholder="请输入商家名称" v-model="search.keyWord" @keyup.native="doSearch">
         <div class="inline-block pointer" slot="append" @click="doSearch">
           <ml-icon icon="sousuo"></ml-icon>
         </div>
       </el-input>
-      <el-button type="primary" @click="$router.push('/business/add')">添加商家</el-button>
     </div>
-    <el-table
-      id="table"
-      :data="tableData"
-      border
-      tooltip-effect="dark"
-      style="width: 100%">
-      <el-table-column
-        type="index"
-        label="序号"
-        width="65">
-      </el-table-column>
-      <el-table-column
-        prop="id"
-        label="商家ID"
-        width="100">
-      </el-table-column>
-      <el-table-column
-        prop="businessName"
-        label="商家名称"
-        width="220">
+    <el-table id="table" :data="tableData" style="width: 100%">
+      <el-table-column type="index" label="序号" width="65"></el-table-column>
+      <el-table-column prop="id" label="商家ID" width="100"></el-table-column>
+      <el-table-column prop="businessName" label="商家名称" width="220">
         <template scope="scope">
           <a href="javascript:;" @click="toDoDetail(scope.row.id)" type="text">{{scope.row.businessName}}</a>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="createDate"
-        label="创建日期"
-        width="140">
-      </el-table-column>
+      <el-table-column prop="createDate" label="创建日期" width="140"></el-table-column>
       <!--<el-table-column-->
       <!--prop="createDate"-->
       <!--label="状态"-->
@@ -46,35 +26,14 @@
       <!--</template>-->
       <!--</el-table-column>-->
 
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
+      <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column fixed="right" label="操作" width="80">
         <template scope="scope">
           <!--<el-button-->
           <!--size="mini"-->
           <!--@click="doEnableDisable(scope.row)"> {{!scope.row.state ? '启用' : '禁用'}}-->
           <!--</el-button>-->
-          <el-button
-            size="mini"
-            @click="toDoEdit(scope.row.id)">编辑
-          </el-button>
-          <!--<el-popover placement="bottom"-->
-          <!--width="280"-->
-          <!--ref="delOpt">-->
-          <!--<div class="common-pop-wrap">-->
-          <!--<p class="pop-content center">删除后，此活动将无法恢复。确定删除？</p>-->
-          <!--<div class="pop-bottom">-->
-          <!--<el-button type="primary" @click="doDelete(scope.row.id)">确定</el-button>-->
-          <!--<el-button @click="popoverClose">取消</el-button>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</el-popover>-->
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--type="danger" v-popover:delOpt>删除-->
-          <!--</el-button>-->
+          <el-button size="mini" @click="toDoEdit(scope.row.id)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -21,14 +21,21 @@ export default {
   sideBar2: [ // shop商户
     {
       name: '商品管理', // 菜单名称
-      icon: 'shezhi', // 菜单图标
+      icon: 'good', // 菜单图标
+      level: 1, // 菜单级别
+      link: '/good/list',
+      subMenu: [],
+    },
+    {
+      name: '订单管理', // 菜单名称
+      icon: 'order', // 菜单图标
       level: 1, // 菜单级别
       link: '/business/list',
       subMenu: [],
     },
     {
-      name: '订单管理', // 菜单名称
-      icon: 'shezhi', // 菜单图标
+      name: '店铺信息', // 菜单名称
+      icon: 'order', // 菜单图标
       level: 1, // 菜单级别
       link: '/business/list',
       subMenu: [],
