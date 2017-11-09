@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-label mgl10">
+  <div class="ml-label">
     <div class="inline-block mgr5" v-if="label">{{label}} :</div>
     <slot></slot>
   </div>

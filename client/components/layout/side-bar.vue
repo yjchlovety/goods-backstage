@@ -33,6 +33,10 @@
       sideBar.forEach((one, index) => {
         one.isOpen = false
         one.maxHeight = 0
+        if (one.link === this.$route.meta.sidebarLink) {
+          one.isOpen = true
+          result = true
+        }
         if (!result) {
           one.isOpen = one.link === this.$route.fullPath
           for (let i = 0, len = one.subMenu.length; i < len; i++) {

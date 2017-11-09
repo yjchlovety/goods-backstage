@@ -6,6 +6,8 @@ import error404 from './view/error-404.vue'
 import business from './view/business/routes'
 import statistics from './view/statistics/routes'
 import good from './view/good/routes'
+import order from './view/order/routes'
+import setting from './view/setting/routes'
 
 const routes = [
   {
@@ -25,6 +27,16 @@ const routes = [
         path: '/good',
         component: empty,
         children: good,
+      },
+      {
+        path: '/order',
+        component: empty,
+        children: order,
+      },
+      {
+        path: '/setting',
+        component: empty,
+        children: setting,
       },
       {
         path: '/statistics',

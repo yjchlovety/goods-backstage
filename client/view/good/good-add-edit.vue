@@ -3,57 +3,33 @@
     <el-form :model="detail" :rules="rules" ref="ruleForm" label-width="108px" onSubmit="return false"
              label-position="left">
       <ml-area-title title="基础信息">
-        <el-form-item label="商家名称" prop="businessName">
-          <el-input v-model="detail.businessName"
-                    class="base-width"
-                    :maxlength="50"
-                    placeholder="最多支持50个字">
+        <el-form-item label="商品名称" prop="goodName">
+          <el-input v-model="detail.goodName" class="base-width" :maxlength="50" placeholder="最多支持50个字">
           </el-input>
         </el-form-item>
-        <el-form-item label="商家LOGO" prop="logoUrl">
-          <ml-image-uploader v-model="detail.logoUrl" max-size="1" prompt="建议图片250*250px 支持JPG、JPEG、PNG格式，大小在1M以内">
+        <el-form-item label="商品编码" prop="code">
+          <el-input v-model="detail.code" class="base-width" :maxlength="50" placeholder="最多支持50个字">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="商品价格" prop="price">
+          <el-input v-model="detail.price" class="base-width" :maxlength="50">
+            <template slot="prepend">¥</template>
+          </el-input>
+        </el-form-item>
+
+        <el-form-item label="商品类别" required>
+          <el-cascader change-on-select class="base-width" placeholder="请选择类别"
+                       :options="options" :props="{value:'id'}"></el-cascader>
+        </el-form-item>
+        <el-form-item label="商品图片" prop="imageUrl">
+          <ml-image-uploader v-model="detail.imageUrl" max-size="1" prompt="建议图片250*250px 支持JPG、JPEG、PNG格式，大小在1M以内">
           </ml-image-uploader>
         </el-form-item>
-        <el-form-item label="商家地址" prop="address">
-          <el-input v-model="detail.address"
-                    resize="none"
-                    :autosize="{minRows: 2, maxRows: 2 }"
-                    class="middle-width"
-                    type="textarea"
-                    :maxlength="100">
+        <el-form-item label="商品描述">
+          <el-input v-model="detail.describe" resize="none" class="middle-width" type="textarea"
+                    :autosize="{minRows: 4, maxRows: 6 }" :maxlength="500">
           </el-input>
         </el-form-item>
-        <el-form-item label="商家描述">
-          <el-input v-model="detail.describe"
-                    resize="none"
-                    :autosize="{minRows: 4, maxRows: 6 }"
-                    class="middle-width"
-                    type="textarea"
-                    :maxlength="500">
-          </el-input>
-        </el-form-item>
-      </ml-area-title>
-      <ml-area-title title="用户信息">
-        <el-form-item label="联系人姓名" prop="contactName">
-          <el-input v-model="detail.contactName"
-                    class="base-width"
-                    :maxlength="50">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="联系电话" prop="contactPhone">
-          <el-input v-model="detail.contactPhone"
-                    class="base-width"
-                    :maxlength="11">
-          </el-input>
-          <div class="inline-block stress">注:商家登录账户，密码默认为初始化密码</div>
-        </el-form-item>
-        <!--<el-form-item label="启用状态">-->
-        <!--<el-switch-->
-        <!--v-model="detail.state"-->
-        <!--on-color="#13ce66"-->
-        <!--off-color="#ff4949">-->
-        <!--</el-switch>-->
-        <!--</el-form-item>-->
       </ml-area-title>
     </el-form>
     <div class="base-button-warp">
@@ -69,37 +45,75 @@
     data() {
       return {
         rules: {
-          businessName: [
-            { required: true, message: '请输入名称', trigger: 'change' },
-            { required: true, message: '请输入名称', trigger: 'blur' },
+          goodName: [
+            { required: true, message: '请输入商品名称', trigger: 'change' },
+            { required: true, message: '请输入商品名称', trigger: 'blur' },
           ],
-          contactName: [
-            { required: true, message: '请输入联系人姓名', trigger: 'change' },
-            { required: true, message: '请输入联系人姓名', trigger: 'blur' },
+          code: [
+            { required: true, message: '请输入商品编码', trigger: 'change' },
+            { required: true, message: '请输入商品编码', trigger: 'blur' },
           ],
-          contactPhone: [
-            { required: true, message: '请输入联系电话', trigger: 'change' },
-            { required: true, message: '请输入联系电话', trigger: 'blur' },
+          price: [
+            { required: true, message: '请输入商品价格', trigger: 'change' },
+            { required: true, message: '请输入商品价格', trigger: 'blur' },
           ],
-          logoUrl: [
-            { required: true, message: '请上传图片', trigger: 'change' },
-            { required: true, message: '请上传图片', trigger: 'blur' },
+          imageUrl: [
+            { required: true, message: '请上传商品图片', trigger: 'change' },
+            { required: true, message: '请上传商品图片', trigger: 'blur' },
           ],
-          address: [
-            { required: true, message: '请输入地址', trigger: 'change' },
-            { required: true, message: '请输入地址', trigger: 'blur' },
-          ]
         },
         detail: {
-          businessName: '', // 商家名称
-          describe: '', // 商家描述
-          contactName: '', // 联系人姓名
-          contactPhone: '', // 联系人电话
-          state: true, // 商家状态true启用,false禁用
-          logoUrl: 'http://img-np.xkeshi.cn/test/w1/d8/bf/c74d9691afbc1bd5091881996cce.jpeg', // 商家logoURL
-          address: '', // 商家地址
+          goodName: '', // 商品名称
+          code: '', // 商品编码
+          price: '', // 商品价格
+          describe: '', // 商品描述
+          state: 1, // 商品状态 默认1已上架
+          imageUrl: 'http://img-np.xkeshi.cn/test/w1/d8/bf/c74d9691afbc1bd5091881996cce.jpeg', // 商品图片
+          classFy: [], // 商品分类
         },
         title: this.$route.query.id ? '添加商品' : '编辑商品',
+        options: [
+          {
+            id: '',
+            label: '全部',
+          },
+          {
+            id: 11,
+            label: '一级 1',
+            children: [
+              {
+                id: 111,
+                label: '二级 1-1',
+              },
+              {
+                id: 112,
+                label: '二级 1-2'
+              },
+              {
+                id: 113,
+                label: '二级 1-3'
+              }
+            ],
+          },
+          {
+            id: 22,
+            label: '一级 2',
+            children: [
+              {
+                id: 221,
+                label: '二级 2-1'
+              },
+              {
+                id: 223,
+                label: '二级 2-2'
+              },
+              {
+                id: 224,
+                label: '二级 2-3'
+              }
+            ],
+          },
+        ],
       }
     },
     methods: {

@@ -88,6 +88,7 @@ div {
 .button-bar .input-search {
   width: 220px;
   margin-left: 10px;
+  vertical-align: bottom;
 }
 
 .pointer {

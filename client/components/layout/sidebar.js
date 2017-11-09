@@ -30,14 +30,14 @@ export default {
       name: '订单管理', // 菜单名称
       icon: 'order', // 菜单图标
       level: 1, // 菜单级别
-      link: '/business/list',
+      link: '/order/list',
       subMenu: [],
     },
     {
-      name: '店铺信息', // 菜单名称
-      icon: 'order', // 菜单图标
+      name: '店铺设置', // 菜单名称
+      icon: 'shop', // 菜单图标
       level: 1, // 菜单级别
-      link: '/business/list',
+      link: '/setting/shop-set',
       subMenu: [],
     },
     {

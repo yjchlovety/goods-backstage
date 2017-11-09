@@ -2,7 +2,7 @@
   <ml-layout title="商家列表">
     <div class="button-bar">
       <el-button type="primary" @click="$router.push('/business/add')">添加商家</el-button>
-      <el-input class="input-search" placeholder="请输入商家名称" v-model="search.keyWord" @keyup.native="doSearch">
+      <el-input class="input-search" placeholder="商家名称" v-model="search.keyWord" @keyup.native="doSearch">
         <div class="inline-block pointer" slot="append" @click="doSearch">
           <ml-icon icon="sousuo"></ml-icon>
         </div>

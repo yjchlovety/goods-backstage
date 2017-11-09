@@ -1,19 +1,16 @@
 <template>
-  <ml-layout title="商品列表">
+  <ml-layout title="订单列表">
     <div class="button-bar">
-      <el-button type="primary" @click="$router.push('/good/add')">添加商品</el-button>
-      <ml-label label="商品类别" class="mgl10">
-        <el-cascader change-on-select @change="classFyChange" v-model="search.classify"
-                     :options="options" :props="{value:'id'}"></el-cascader>
-      </ml-label>
-      <ml-label label="商品状态" class="mgl10">
+      <ml-label label="订单状态">
         <el-select @change="stateChange" class="state-select" placeholder="请选择" v-model="search.state">
           <el-option label="全部" value=""></el-option>
-          <el-option label="已上架" :value="1"></el-option>
-          <el-option label="已下架" :value="0"></el-option>
+          <el-option label="未付款" :value="1"></el-option>
+          <el-option label="待发货" :value="2"></el-option>
+          <el-option label="待收获" :value="3"></el-option>
+          <el-option label="交易成功" :value="4"></el-option>
         </el-select>
       </ml-label>
-      <el-input class="input-search" placeholder="商品名称" v-model="search.keyWord" @keyup.native="doSearch">
+      <el-input class="input-search" placeholder="订单号" v-model="search.keyWord" @keyup.native="doSearch">
         <div class="inline-block pointer" slot="append" @click="doSearch">
           <ml-icon icon="sousuo"></ml-icon>
         </div>
@@ -21,39 +18,30 @@
     </div>
     <el-table border id="table" :data="tableData" style="width: 100%">
       <el-table-column type="index" label="序号" width="65"></el-table-column>
-      <el-table-column prop="id" label="商品ID/编码" width="160">
-        <template scope="scope">{{scope.row.id}}/{{scope.row.code}}</template>
+      <el-table-column prop="id" label="订单号" width="130">
+        <template scope="scope">
+          <a href="javascript:;" @click="toOrderDetail(scope.row.id)" type="text">{{scope.row.id}}</a>
+        </template>
       </el-table-column>
       <el-table-column prop="goodName" label="商品名称" width="260">
         <template scope="scope">
-          <a href="javascript:;" @click="toDoDetail(scope.row.id)" type="text">{{scope.row.goodName}}</a>
+          <a href="javascript:;" @click="toGoodDetail(scope.row.id)" type="text">{{scope.row.goodName}}</a>
         </template>
       </el-table-column>
+      <el-table-column prop="number" label="数量" width="100"></el-table-column>
       <el-table-column prop="price" label="价格" width="120"></el-table-column>
-      <el-table-column prop="classify" label="分类" width="140"></el-table-column>
-      <el-table-column prop="stock" label="库存" width="120"></el-table-column>
-      <el-table-column prop="createDate" label="状态">
+      <el-table-column prop="state" label="状态">
         <template scope="scope">
-          {{scope.row.state == 1 ? '已上架' : '已下架'}}
+          <template v-if="scope.row.state==1">未付款</template>
+          <template v-if="scope.row.state==2">待发货</template>
+          <template v-if="scope.row.state==3">待收获</template>
+          <template v-if="scope.row.state==4">交易成功</template>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="170">
+      <el-table-column fixed="right" label="操作" width="110">
         <template scope="scope">
-          <el-popover placement="top"
-                      width="280"
-                      ref="delOpt">
-            <div class="common-pop-wrap">
-              <p class="pop-content center">删除后，此商品将无法恢复。确定删除？</p>
-              <div class="pop-bottom">
-                <el-button type="primary" @click="doDelete(scope.row.id)">确定</el-button>
-                <el-button @click="popoverClose">取消</el-button>
-              </div>
-            </div>
-          </el-popover>
-          <el-button size="mini" @click="doEnableDisable(scope.row)"> {{!scope.row.state ? '上架' : '下架'}}
-          </el-button>
-          <el-button size="mini" @click="toDoEdit(scope.row.id)">编辑</el-button>
-          <el-button size="mini" type="danger" v-popover:delOpt>删除</el-button>
+          <el-button v-if="scope.row.state==1" size="mini" @click="doEnableDisable(scope.row)">改订单价格</el-button>
+          <el-button v-if="scope.row.state==2" size="mini" @click="toDoEdit(scope.row.id)">发货</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -124,16 +112,10 @@
         totalNumber: 100,
         inputVal: '',
         tableData: [
-          { id: 10321, goodName: 'ViVo手机', code: '67890122', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10324, goodName: '苹果手机', code: '67890112', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10321, goodName: 'ViVo手机', code: '67890122', stock: 999, classify: '分类', price: 22.02, state: 0 },
-          { id: 10324, goodName: '苹果手机', code: '67890112', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10321, goodName: 'ViVo手机', code: '67890122', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10324, goodName: '苹果手机', code: '67890112', stock: 999, classify: '分类', price: 22.02, state: 0 },
-          { id: 10321, goodName: 'ViVo手机', code: '67890122', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10324, goodName: '苹果手机', code: '67890112', stock: 999, classify: '分类', price: 22.02, state: 0 },
-          { id: 10321, goodName: 'ViVo手机', code: '67890122', stock: 999, classify: '分类', price: 22.02, state: 1 },
-          { id: 10324, goodName: '苹果手机', code: '67890112', stock: 999, classify: '分类', price: 22.02, state: 1 },
+          { id: 1032222221, goodName: 'ViVo手机', number: 3, classify: '分类', price: 22.02, state: 1 },
+          { id: 1032222221, goodName: 'ViVo手机', number: 3, classify: '分类', price: 22.02, state: 2 },
+          { id: 1032222221, goodName: 'ViVo手机', number: 3, classify: '分类', price: 22.02, state: 3 },
+          { id: 1032222221, goodName: 'ViVo手机', number: 3, classify: '分类', price: 22.02, state: 4 },
         ],
         multipleSelection: [],
         whiteList: [
@@ -187,11 +169,18 @@
         this.$router.push(`/good/edit/${id}`)
       },
       /**
-       * 去详情
+       * 去商品详情
        * @param {String} id
        */
-      toDoDetail(id) {
+      toGoodDetail(id) {
         this.$router.push(`/good/detail/${id}`)
+      },
+      /**
+       * 去订单详情
+       * @param {String} id
+       */
+      toOrderDetail(id) {
+        this.$router.push(`/order/detail/${id}`)
       },
       /**
        * 类别Change事件
@@ -210,7 +199,7 @@
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
   .state-select {
-    width: 100px;
+    width: 110px;
   }
 
   .text-right {
