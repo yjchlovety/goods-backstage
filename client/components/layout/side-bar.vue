@@ -1,14 +1,15 @@
 <template>
   <div class="ml-side-bar">
     <div class="sidebar-nav" v-for="(item,index) in menuJson " :key="`sidebar-nav${index}`">
-      <div class="sidebar-title" :class="{'sidebar-open':item.isOpen,'no-nav':!item.subMenu||item.subMenu.length==0}"
+      <div class="sidebar-title"
+           :class="{'sidebar-title-checked':item.link==$route.fullPath&&(!item.subMenu||item.subMenu.length==0)}"
            @click="openOrClose(item,index)">
         <ml-icon v-if="item.icon" :icon="item.icon"></ml-icon>
         <span class="sidebar-title-text inline-block">{{item.name}}</span>
       </div>
       <ul class="sidebar-nav-ul" :style="`max-height:${item.maxHeight}px`">
-        <li class="nav-item" :class="{'nav-item-checked':childItem.link==$route.meta.sidebarLink}"
-            v-for="(childItem,cldIndex) in item.subMenu" @click="goToUrl(childItem)"
+        <li class="nav-item" :class="{'nav-item-checked':childItem.link==$route.fullPath}"
+            v-for="(childItem,cldIndex) in item.subMenu" @click="goToUrl(childItem,index)"
             :key="`sidebar.${index}.nav.${cldIndex}`">
           {{childItem.name}}
         </li>
@@ -29,27 +30,13 @@
     },
     created() {
       const sideBar = sideJson['sideBar' + this.$storage.getItem('userObject', false).powerLevel]
-      let result = false
       sideBar.forEach((one, index) => {
-        one.isOpen = false
+        if (one.link === this.$route.meta.sidebarLink) this.menuIndex = index
         one.maxHeight = 0
-        if (one.link === this.$route.meta.sidebarLink) {
-          one.isOpen = true
-          result = true
-        }
-        if (!result) {
-          one.isOpen = one.link === this.$route.fullPath
-          for (let i = 0, len = one.subMenu.length; i < len; i++) {
-            if (one.subMenu[i].link === this.$route.meta.sidebarLink) {
-              this.menuIndex = index
-              const hh1 = document.documentElement.clientHeight - 50 - 40 * sideBar.length
-              const hh2 = one.subMenu.length * 40
-              one.maxHeight = hh1 > hh2 ? hh2 : hh1
-              one.isOpen = true
-              result = true
-              break
-            }
-          }
+        if (this.menuIndex === index) {
+          const hh1 = document.documentElement.clientHeight - 50 - 40 * sideBar.length
+          const hh2 = one.subMenu.length * 40
+          one.maxHeight = hh1 > hh2 ? hh2 : hh1
         }
       })
       this.menuJson = JSON.parse(JSON.stringify(sideBar))
@@ -61,38 +48,28 @@
        * @param {Number} index
        */
       openOrClose(item, index) {
-        if (this.menuIndex === index) {
-          item.isOpen = false
+        if (item.maxHeight !== 0) {
           item.maxHeight = 0
-          this.menuIndex = -1
         } else {
-          this.menuJson.forEach(v => {
-            v.isOpen = 0
-            v.maxHeight = 0
-          })
-          if (this.menuJson[index].subMenu && this.menuJson[index].subMenu.length > 0) {
+          if (this.menuIndex > -1) this.menuJson[this.menuIndex].maxHeight = 0
+          if (item.subMenu && item.subMenu.length > 0) {
             const hh1 = document.documentElement.clientHeight - 50 - 40 * this.menuJson.length
-            const hh2 = this.menuJson[index].subMenu.length * 40
-            this.menuJson[index].maxHeight = hh1 > hh2 ? hh2 : hh1
-          }
-          this.menuJson[index].isOpen = true
-          if (!item.link) {
-            const $index = this.menuJson[index].subMenu.findIndex(mm => {
-              return mm.link === this.$route.fullPath
-            })
-            this.goToUrl(item.subMenu[$index === -1 ? 0 : $index])
+            const hh2 = item.subMenu.length * 40
+            item.maxHeight = hh1 > hh2 ? hh2 : hh1
+            this.menuIndex = index
           } else {
-            this.goToUrl(item)
+            this.goToUrl(item, index)
           }
-          this.menuIndex = index
         }
       },
       /**
        * 路由跳转
-       * @param obj
+       * @param {Object} obj
+       * @param {Number} index
        */
-      goToUrl(obj) {
+      goToUrl(obj, index) {
         if (obj && obj.link) this.$router.push(obj.link)
+        this.menuIndex = index
       }
     },
   }
@@ -135,7 +112,7 @@
     .nav-item:hover {
       background-color: #50576e;
     }
-    .nav-item-checked, .nav-item-checked:hover, .sidebar-open.no-nav {
+    .nav-item-checked, .nav-item-checked:hover, .sidebar-title-checked {
       background-color: #1ac1de;
     }
     .sidebar-nav-ul {
