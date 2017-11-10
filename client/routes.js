@@ -8,6 +8,7 @@ import statistics from './view/statistics/routes'
 import good from './view/good/routes'
 import order from './view/order/routes'
 import setting from './view/setting/routes'
+import message from './view/message/routes'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
         path: '/setting',
         component: empty,
         children: setting,
+      },
+      {
+        path: '/msg',
+        component: empty,
+        children: message,
       },
       {
         path: '/statistics',

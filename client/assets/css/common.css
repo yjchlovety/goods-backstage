@@ -167,3 +167,9 @@ div {
 .pdt20 {
   padding-top: 20px;
 }
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

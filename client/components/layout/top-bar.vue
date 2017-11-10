@@ -6,7 +6,7 @@
     <a class="top-bar-btn index-word" href="javascript:;">管理后台</a>
     <div class="top-bar-right">
       <a class="top-bar-btn " href="javascript:;" @click="loginOut()">退出</a>
-      <a class="top-bar-btn " href="javascript:;">
+      <a class="top-bar-btn " href="javascript:;" @click="$router.push('/msg/list')">
         <span>消息</span>
         <span v-show="unread>0" class="unread-num">{{unread}}</span>
       </a>
